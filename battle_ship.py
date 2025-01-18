@@ -87,7 +87,7 @@ def rand_ships():
         for h in temp_pos_list:
             board_row = int(h[1::]) - 1
             board_column = columns.index(h[0])
-            board[board_row][board_column] = i[0]
+            #board[board_row][board_column] = i[0]
         for k in temp_pos_list:
             ship_pos_list[k] = i
         pos_list = pos_list + temp_pos_list
@@ -117,7 +117,7 @@ def attack():
             print('SUNK!!!')
             ship_count['Patrol'] = 6
     
-    spot = input("Enter Cell(ex: G7, F4, etc.): ")
+    spot = input("Enter Cell(ex: G7, F4, etc.): ").upper()
     row = int(spot[1::]) - 1
     column = columns.index(spot[0])
     clear()
@@ -138,6 +138,11 @@ rand_ships()
 
 print_board(board)
 while [ship_count['Carrier'], ship_count['Battleship'], ship_count['Destroyer'], ship_count['Submarine'], ship_count['Patrol']] != [6,6,6,6,6]:
-    attack()
-    print([ship_count['Carrier'], ship_count['Battleship'], ship_count['Destroyer'], ship_count['Submarine'], ship_count['Patrol']])
+    try:
+        attack()
+    except IndexError:
+        print("Enter number in range 1-10")
+        attack()
+    except ValueError:
+        pass
 print('YOU WON!!!')
